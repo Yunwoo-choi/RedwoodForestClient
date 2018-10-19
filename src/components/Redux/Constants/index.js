@@ -1,0 +1,2 @@
+export const GET_ALL_PROFILES = 'GET_ALL_PROFILES';
+export const ADD_PROFILE = 'ADD_PROFILE'

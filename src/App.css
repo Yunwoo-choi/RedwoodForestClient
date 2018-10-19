@@ -1,0 +1,189 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.tutorsThumbnail {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.header {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  padding: 20px 10px;
+}
+
+.header a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px; 
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+  font-family: "Mali";
+  font-style: italic;
+
+}
+
+.header a:hover {
+  background-color: rgb(68, 145, 245);
+  color: black;
+}
+
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.header-right {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .header-right {
+    float: none;
+  }
+}
+
+.custom-form {
+  width: 30%;
+  margin-left: 30px;
+}
+
+.LogoThumbnail {
+	position: relative;
+  justify-self: flex-start;
+  align-self: flex-start;
+  margin: 20px;
+}
+
+.FindTutor {
+  height: 500px;
+  width: 900px;
+  background:rgba(127, 204, 204, 0.8);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.BackgroundImage {
+  display: flex;
+  background-image: url("./components/assets/Background1.jpg");
+  background-size: cover;
+  height: 1000px;
+  margin-top: -89px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.profileThumbnail {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.custom-form {
+  margin-top: 40px;
+}
+.custom-form2 {
+  height:100%;
+  background-image: url('./components/assets/Logo2.jpeg');
+  background-size: cover;
+  flex:1;
+  display: flex;
+  margin-left: 40px;
+  border-radius: 0 20px 20px 0;
+}
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.Information {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+
+
+
+
+/* Dropdown Menu */
+.dropbtn {
+  background-color: #3cb3cd;
+  color: black;
+  padding: 7px;
+  font-size: 18px;
+  border: none;
+  width: 400px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  width: 400px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+
+/* Notice Button */
+.alert {
+  padding: 20px;
+  background-color: #2ba30d;
+  color: white;
+  width: 80%;
+}
+
+.closebtn {
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
