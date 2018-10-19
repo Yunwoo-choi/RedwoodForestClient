@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { getAllProfiles, addProfile, conditionalAlumniProfile } from '../Redux/Actions';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 class Alumni extends Component {
 
@@ -14,33 +15,43 @@ class Alumni extends Component {
 
     render() {
         return (
-            <div>
-                <div className="header headerBackground">
-                    <a href="#default" className="logo">Redwood Forest</a>
-                    <div className="header-right">
-                        <a style = {{ opacity: 0.6, backgroundColor: 'gainsboro'}}href="login">Home</a>
-                        <a style = {{ opacity: 0.6, backgroundColor: 'gainsboro', marginLeft: 5}}href="profile">Profile</a>
-                    </div>
-                </div>
+            <div className = "App">
+                {/* HEADER */}
                 <div>
-                <div style = {{display: "flex", flexWrap: "wrap", justifyContent: 'center'}}>
+                    <header>
+                        <div class='logo'>
+                            <h2 style = {{fontFamily: 'mali'}}>
+                                REDWOOD FOREST
+                            </h2>
+                        </div>
+                        <nav class="active">
+                            <ul>
+                                <li><a href="timeline" class="active">Home</a></li>
+                                <li><a href="profile">Profile</a></li>
+                                <li><a href="alumni">Alumni</a></li>
+                            </ul>
+                        </nav>
+                        <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
+                    </header>
+                </div>
+
+                {/* BODY */}
+                <div className='profile'>
+                    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: 'center'}}>
+                    <div style = {{marginTop: 120, display: 'flex',flexWrap: "wrap", justifyContent: 'center'}}>
                         {
                             this.props.profiles.map((prof) => {
                                 return (
-                                    <div className = "ProfilesMap" key={prof.profile_id} style = {{fontSize: '0.8vw'}}>
-                                        <input onClick = {() => this.props.changeAlumniId(prof.profile_id)} type="image" style={{ border: 2, maxWidth: '80%', height: 'auto', maxHeight: 200, marginTop: 5, borderRadius: 10}} src="https://static.posters.cz/image/750/posters/star-wars-episode-vii-the-force-awakens-kylo-ren-crouch-i27998.jpg" name="image"></input>
-                                        <p className="text-center font-italic">{prof.first_name} {prof.last_name} {prof.date.date.substring(0,4)} Cohort</p>
-                                        <hr style={{ width: '100%' }} ></hr>
-                                        <p className="text-center font-italic"><strong>Occupation:</strong> {prof.current_job}</p>
-                                        <hr style={{ width: '100%' }}></hr>
-                                        <p className="text-center font-italic"><strong>Education:</strong> {prof.education}</p>
-                                        <p className="text-center font-italic"><strong>Skills:</strong> {prof.skills}</p>
-                                        <p className="text-center font-italic"><strong>Current Project:</strong> {prof.projects}</p>
+                                    <div className="ProfilesMap" key={prof.profile_id} style={{ fontSize: '0.7vw', backgroundColor: 'rgba(255, 99, 71, 0.5)' }}>
+                                        <Link to='/alumni-profile'onClick={() => this.props.changeAlumniId(prof.profile_id)} type="image" name="image">
+                                            <img style={{ border: 2, maxWidth: '80%', height: 'auto', maxHeight: 200, marginTop: 5, borderRadius: 10 }} src={prof.image} />
+                                        </Link>
+                                        <p className="text-center font-italic" style = {{fontWeight: 'bold'}}>{prof.first_name} {prof.last_name} {prof.date.date.substring(0, 4)} Cohort</p>
                                     </div>
                                 )
                             })
-
                         }
+                        </div>
                     </div>
                 </div>
             </div>

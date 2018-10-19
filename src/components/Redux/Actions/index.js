@@ -3,7 +3,9 @@ import {
     GET_ALL_PROFILES,
     ADD_PROFILE,
     CONFIRM_LOGIN,
-    CHANGE_ALUMNI_ID
+    CHANGE_ALUMNI_ID,
+    GET_SPECIFIC_ALUMNI,
+    GET_GRAD_DATES
 } from '../Constants';
 
 
@@ -37,4 +39,15 @@ export const confirmLogin = (confirmation) => async dispatch => {
 
 export const conditionalAlumniProfile = (id) => async dispatch => {
     dispatch({ type: CHANGE_ALUMNI_ID, alumniId: id})
+}
+
+export const getSpecificAlumni = (id) => async dispatch => {
+    let response = await axios.get(`http://localhost:5000/api/profiles/` + id)
+    dispatch({ type: GET_SPECIFIC_ALUMNI, alumniData: response.data})
+}
+
+export const getGradDates = () => async dispatch => {
+    let response = await axios.get(`http://localhost:5000/api/graddate`)
+    console.log(response.data);
+    dispatch({ type: GET_GRAD_DATES, gradDate: response.data})
 }

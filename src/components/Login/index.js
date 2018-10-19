@@ -6,7 +6,7 @@ import Eric from '../assets/Eric.jpg';
 import Modal from 'react-modal';
 
 import { Link } from 'react-router-dom'
-import {getAllProfiles, addProfile} from '../Redux/Actions';
+import { getAllProfiles, addProfile, getGradDates } from '../Redux/Actions';
 import { connect } from 'react-redux';
 
 // color pallete: https://www.colorcombos.com/color-schemes/386/ColorCombo386.html
@@ -23,6 +23,7 @@ const customStyles = {
     }
 };
 
+let months = ["January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 class Login extends Component {
     constructor() {
@@ -47,11 +48,12 @@ class Login extends Component {
 
     componentDidMount() {
         this.props.getAllProfiles();
+        this.props.getGradDates();
     }
 
-    
+
     addCohortMember = () => {
-        this.props.addProfile({"first_name": this.state.firstName, "last_name": this.state.lastName, "gender_id": this.state.gender, "location": this.state.address, "image": this.state.imgUrl, "experience_id": this.state.experience, "grad_date_id": 1})
+        this.props.addProfile({ "first_name": this.state.firstName, "last_name": this.state.lastName, "gender_id": this.state.gender, "location": this.state.address, "image": this.state.imgUrl, "experience_id": this.state.experience, "grad_date_id": this.state.grad_date_id })
         this.setState({
             firstName: '',
             lastName: '',
@@ -74,15 +76,18 @@ class Login extends Component {
         experience: 1,
         address: '',
         imgUrl: '',
+        grad_date_id: '',
 
         genderTitle: 'Gender',
+        cohortGraduationTitle: "Cohort Year",
+        noticeStatus: false,
 
-        noticeStatus: false
+        gradeDatesArray: []
     }
 
 
     render() {
-        return (
+        return (this.props.gradDates &&
             <div>
 
                 {/*                                           HEADER                                                */}
@@ -95,7 +100,7 @@ class Login extends Component {
                         <a style={{ color: "white" }} href="https://www.switchup.org/bootcamps/redwood-code-academy" target="_blank" rel="noopener noreferrer" >Reviews</a>
                         <a href="#contact" style={{ color: "white" }}>Contact</a>
                         <a href="#about" style={{ color: "white" }}>About</a>
-                        <button  className = "btn btn-outline-light" style={{ color: "white", borderWidth: 0}} onClick={() => this.openModal()} >Find Your Cohort</button>
+                        <button className="btn btn-outline-light" style={{ color: "white", borderWidth: 0 }} onClick={() => this.openModal()} >Find Your Cohort</button>
                     </div>
                 </div>
 
@@ -122,25 +127,27 @@ class Login extends Component {
                             <label style={{ margin: 0, fontWeight: 'bold' }}>Password</label>
                             <input value={this.state.setPassword} onChange={(e) => this.setState({ setPassword: e.target.value })} type="password" className="form-control" placeholder="Password" style={{ marginBottom: 10 }} />
                             <label style={{ margin: 0, fontWeight: 'bold' }}>Cohort Graduation Date</label> <br />
-                            {/* <div className="dropdown">
-                                <button className="dropbtn">{this.state.EmployeeName}</button>
+                            <div className="dropdown">
+                                <button className="dropbtn">{this.state.cohortGraduationTitle}</button>
                                 <div className="dropdown-content">
                                     {
-                                        this.props.employees.map((x, i) => (
-                                            <a key = {i} value = {x.employee_id} onClick = {() => this.employeePick(x.employee_id, x.name)} >{x.name}</a>
+                                        this.props.gradDates.map((x, i) => (
+                                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                            <button className="btn btn-outline-info" style={{ flex: 1, borderWidth: 0 }} onClick={() => this.setState({ grad_date_id: x.grad_date_id, cohortGraduationTitle: x.date.substring(0,10)})}>{x.date.substring(0,10)}</button>
+                                            </div>
                                         ))
                                     }
                                 </div>
-                            </div> */}
+                            </div>
                             <label style={{ margin: 0, fontWeight: 'bold' }}>Email</label>
                             <input value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} type="text" className="form-control" placeholder="Enter Email Address" style={{ marginBottom: 10 }} />
                             <label style={{ margin: 0, fontWeight: 'bold' }}>Gender</label>
                             <div className="dropdown">
                                 <button className="dropbtn">{this.state.genderTitle}</button>
                                 <div className="dropdown-content">
-                                <div style = {{display: 'flex', flexDirection: 'column'}}>
-                                    <button  className = "btn btn-outline-info" style = {{flex: 1, borderWidth: 0}} onClick={() => this.setState({ gender: 1, genderTitle: "Male" })}>Male</button>
-                                    <button  className = "btn btn-outline-info" style = {{flex: 1, borderWidth: 0}} onClick={() => this.setState({ gender: 2, genderTitle: "Female" })}>Female</button>
+                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <button className="btn btn-outline-info" style={{ flex: 1, borderWidth: 0 }} onClick={() => this.setState({ gender: 1, genderTitle: "Male" })}>Male</button>
+                                        <button className="btn btn-outline-info" style={{ flex: 1, borderWidth: 0 }} onClick={() => this.setState({ gender: 2, genderTitle: "Female" })}>Female</button>
                                     </div>
                                 </div>
                             </div>
@@ -158,12 +165,12 @@ class Login extends Component {
 
                 {/*                                           Login                                               */}
                 <div className="BackgroundImage" id="home">
-                { this.state.noticeStatus &&
-                <div className="alert">
-                    <span className="closebtn" onClick = {() => this.setState({ noticeStatus: false})}>&times;</span>
-                    <strong>Success</strong> Welcome to the Official Redwood Code Academy Alumni Network!
+                    {this.state.noticeStatus &&
+                        <div className="alert">
+                            <span className="closebtn" onClick={() => this.setState({ noticeStatus: false })}>&times;</span>
+                            <strong>Success</strong> Welcome to the Official Redwood Code Academy Alumni Network!
                 </div>
-                }
+                    }
                     <div className="LoginBox">
                         <div className="form-group custom-form">
                             <div className="form-group">
@@ -221,12 +228,14 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-    profiles: state.profiles
+    profiles: state.profiles,
+    gradDates: state.gradDates
 })
 
 const mapDispatchToProps = dispatch => ({
     getAllProfiles: () => dispatch(getAllProfiles()),
-    addProfile: (alumni) => dispatch(addProfile(alumni))
+    addProfile: (alumni) => dispatch(addProfile(alumni)),
+    getGradDates: () => dispatch(getGradDates())
 })
 
-export default connect (mapStateToProps, mapDispatchToProps) (Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
