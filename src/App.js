@@ -18,7 +18,9 @@ class App extends Component {
         <div>
           <Switch>
             <Route path='/login' render={() => <Login />} />
+            {/* <div className="Timeline"> */}
             <Route path='/timeline' render={() => <Timeline />} />
+            {/* </div> */}
             <Route path='/alumni' render={() => <Alumni />} />
             <Route path='/profile' render={() => <Profile />} />
           </Switch>
