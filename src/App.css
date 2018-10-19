@@ -2,18 +2,14 @@
   padding: 0;
   margin: 0;
 }
-
-.tutorsThumbnail {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
 .header {
   overflow: hidden;
   background-color: #f1f1f1;
   padding: 20px 10px;
+}
+
+.headerBackground { 
+  background-image: url("./components/assets/Background2.jpg");
 }
 
 .header a {
@@ -73,7 +69,7 @@
   margin: 20px;
 }
 
-.FindTutor {
+.LoginBox {
   height: 500px;
   width: 900px;
   background:rgba(127, 204, 204, 0.8);
@@ -186,4 +182,18 @@ h2 {
 
 .closebtn:hover {
   color: black;
+}
+
+
+/* Alumni Page */
+
+.ProfilesMap {
+  display:inline-block;
+  background-color: #F4F4F4;
+  border-style: double;
+  height: auto;
+  width: 22%;
+  padding: 0;
+  margin: 10px;
+  text-align: center;
 }

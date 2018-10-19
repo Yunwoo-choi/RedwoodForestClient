@@ -1,2 +1,4 @@
 export const GET_ALL_PROFILES = 'GET_ALL_PROFILES';
-export const ADD_PROFILE = 'ADD_PROFILE'
+export const ADD_PROFILE = 'ADD_PROFILE';
+export const CONFIRM_LOGIN = 'CONFIRM_LOGIN';
+export const CHANGE_ALUMNI_ID = 'CHANGE_ALUMNI_ID';

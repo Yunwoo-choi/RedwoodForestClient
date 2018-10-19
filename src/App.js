@@ -6,7 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import Alumni from './components/Alumni';
-import Navbar from './components/Navbar';
+// import Timeline from './components/Timeline';
 
 class App extends Component {
   state = {
@@ -20,6 +20,7 @@ class App extends Component {
             <Route path='/login' render={() => <Login />} />
             <Route path='/profile' render={() => <Profile />} />
             <Route path='/alumni' render={() => <Alumni />} />
+            {/* <Route path='/timeline' render={() => <Timeline />} /> */}
           </Switch>
         </div>
       </div>

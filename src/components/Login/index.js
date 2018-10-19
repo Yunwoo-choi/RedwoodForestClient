@@ -51,7 +51,6 @@ class Login extends Component {
 
     
     addCohortMember = () => {
-        console.log({first_name: this.state.firstName, last_name: this.state.lastName, gender_id: this.state.gender, location: this.state.address, image: this.state.imgUrl, experience_id: this.state.experience, grad_date_id: 1})
         this.props.addProfile({"first_name": this.state.firstName, "last_name": this.state.lastName, "gender_id": this.state.gender, "location": this.state.address, "image": this.state.imgUrl, "experience_id": this.state.experience, "grad_date_id": 1})
         this.setState({
             firstName: '',
@@ -91,12 +90,12 @@ class Login extends Component {
                     <a href="#default" className="logo" >
                         Redwood Forest
                     </a>
-                    <div className="header-right" style={{ color: 'white' }}>
-                        <a className="active" href="https://redwoodcodeacademy.com/" target="_blank" >Join The Community!</a>
-                        <a style={{ color: "white" }} href="https://www.switchup.org/bootcamps/redwood-code-academy" target="_blank">Reviews</a>
+                    <div className="header-right" style={{ color: 'white', display: 'flex' }}>
+                        <a className="active" href="https://redwoodcodeacademy.com/" target="_blank" rel="noopener noreferrer"  >Join The Community!</a>
+                        <a style={{ color: "white" }} href="https://www.switchup.org/bootcamps/redwood-code-academy" target="_blank" rel="noopener noreferrer" >Reviews</a>
                         <a href="#contact" style={{ color: "white" }}>Contact</a>
                         <a href="#about" style={{ color: "white" }}>About</a>
-                        <a style={{ color: "white" }} onClick={() => this.openModal()} >Find Your Cohort</a>
+                        <button  className = "btn btn-outline-light" style={{ color: "white", borderWidth: 0}} onClick={() => this.openModal()} >Find Your Cohort</button>
                     </div>
                 </div>
 
@@ -139,8 +138,10 @@ class Login extends Component {
                             <div className="dropdown">
                                 <button className="dropbtn">{this.state.genderTitle}</button>
                                 <div className="dropdown-content">
-                                    <a onClick={() => this.setState({ gender: 1, genderTitle: "Male" })}>Male</a>
-                                    <a onClick={() => this.setState({ gender: 2, genderTitle: "Female" })}>Female</a>
+                                <div style = {{display: 'flex', flexDirection: 'column'}}>
+                                    <button  className = "btn btn-outline-info" style = {{flex: 1, borderWidth: 0}} onClick={() => this.setState({ gender: 1, genderTitle: "Male" })}>Male</button>
+                                    <button  className = "btn btn-outline-info" style = {{flex: 1, borderWidth: 0}} onClick={() => this.setState({ gender: 2, genderTitle: "Female" })}>Female</button>
+                                    </div>
                                 </div>
                             </div>
                             <label style={{ margin: 0, fontWeight: 'bold' }}>Address</label>
@@ -155,7 +156,7 @@ class Login extends Component {
 
 
 
-                {/*                                           Enter ZIP                                                */}
+                {/*                                           Login                                               */}
                 <div className="BackgroundImage" id="home">
                 { this.state.noticeStatus &&
                 <div className="alert">
@@ -163,7 +164,7 @@ class Login extends Component {
                     <strong>Success</strong> Welcome to the Official Redwood Code Academy Alumni Network!
                 </div>
                 }
-                    <div className="FindTutor">
+                    <div className="LoginBox">
                         <div className="form-group custom-form">
                             <div className="form-group">
                                 <img alt="Logo" src={Logo} className="LogoThumbnail" style={{ width: 75, height: 75, marginBottom: 0 }} />
@@ -177,7 +178,7 @@ class Login extends Component {
                                 <label style={{ margin: 0, fontWeight: 'bold', fontFamily: 'Mali' }}>Password</label>
                                 <input value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} type="text" className="form-control" placeholder="Enter Your Password" />
                             </div>
-                            <Link type="submit" to='/profile' className="btn btn-info float-right" style={{ marginBottom: 40 }}>Login!</Link>
+                            <Link type="submit" to='/profile' className="btn btn-warning float-right" style={{ marginBottom: 40 }}>Login!</Link>
                         </div>
                         <div className="custom-form2">
                             <div style={{ alignSelf: 'flex-end', marginLeft: 20, fontFamily: 'Srisakdi', color: 'white', width: 300 }}>
@@ -197,8 +198,8 @@ class Login extends Component {
                             <button className="btn btn-light" style={{ borderColor: '#936A4A', backgroundColor: '#936A4A' }}><i className="fab fa-instagram fa-2x"></i></button>
                             <button className="btn btn-light" style={{ borderColor: '#936A4A', backgroundColor: '#936A4A' }}><i className="fab fa-tumblr fa-2x"></i></button>
                         </div>
-                        <h6 style={{ fontFamily: 'Open Sans Condensed', marginTop: 5 }}>Email us at:<a style={{ marginLeft: 5, color: "#D5A253" }} href="" target="_top">RedwoodForest@Gmail.com</a></h6>
-                        <h6 style={{ fontFamily: 'Open Sans Condensed', marginTop: 5 }}>For More Information Call us at:  <a style={{ marginLeft: 5, color: "#D5A253" }} href="" target="_top">(714) 714-7147</a></h6>
+                        <h6 style={{ fontFamily: 'Open Sans Condensed', marginTop: 5, display: 'flex', flexDirection: 'row' }}>Email us at:<p style={{ marginLeft: 5, color: "#D5A253" }} href="" target="_top">RedwoodForest@Gmail.com</p></h6>
+                        <h6 style={{ fontFamily: 'Open Sans Condensed', marginTop: 5, display: 'flex', flexDirection: 'row' }}>For More Information Call us at:  <p style={{ marginLeft: 5, color: "#D5A253" }} href="" target="_top">(714) 714-7147</p></h6>
                     </div>
 
 
