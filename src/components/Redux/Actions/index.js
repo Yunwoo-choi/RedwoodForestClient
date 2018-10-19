@@ -5,7 +5,9 @@ import {
     CONFIRM_LOGIN,
     CHANGE_ALUMNI_ID,
     GET_SPECIFIC_ALUMNI,
-    GET_GRAD_DATES
+    GET_GRAD_DATES,
+    GET_PROFILE_DATA,
+    GET_ALL_POSTS
 } from '../Constants';
 
 
@@ -51,3 +53,13 @@ export const getGradDates = () => async dispatch => {
     console.log(response.data);
     dispatch({ type: GET_GRAD_DATES, gradDate: response.data})
 }
+export const getProfileData = (id) => async dispatch => {
+    let response = await axios.get(`http://localhost:5000/api/profiles/` + id)
+    dispatch({ type: GET_PROFILE_DATA, profileData: response.data})
+}
+
+export const getAllPosts = () => async dispatch => {
+    let response = await axios.get(`http://localhost:5000/api/posts`)
+    dispatch({ type: GET_ALL_POSTS, posts: response.data})
+}
+

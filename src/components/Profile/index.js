@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
-
+import { conditionalAlumniProfile, getProfileData } from '../Redux/Actions';
+import { connect } from 'react-redux';
 
 class Profile extends Component {
+  
+  componentDidMount() {
+    this.props.getProfileData(this.props.profileId);
+}
+
   render() {
-    return (
+    return ( this.props.profileData &&
       <div className="App">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous"></link>
       <div>
@@ -15,10 +21,8 @@ class Profile extends Component {
             </div>
             <nav class="active">
                 <ul>
-                    <li><a href="#" class="active">Home</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Alumni</a></li>
-                    <li><a href="#">Jobs</a></li>    
+                    <li><a href="timeline" class="active">Home</a></li>
+                    <li><a href="alumni">Alumni</a></li>
                 </ul>
             </nav>
             <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
@@ -26,60 +30,60 @@ class Profile extends Component {
       </div>  
       {/* NAV BAR IS COMPLETE */}
       {/* START OF PROFILE PAGE */}
-      <div class='profile'>
+      <div className='profile'>
         <div className='header'></div>
           <div >
-            <img className='profilePicture' src='https://static.standard.co.uk/s3fs-public/thumbnails/image/2018/08/29/04/elonmusk2908a.jpg'></img>
+            <img className='profilePicture' src={this.props.profileData.image}></img>
           </div>
           <div className='ProfileInfo'>
             <h2 className='firstName'>
-              Elon
+              {this.props.profileData.first_name}
             </h2>
             <h2 className='lastName'>
-              Musk
+            {this.props.profileData.last_name}
             </h2>
             <h3 className='Cohort'>
-              Graduated Redwood in, Fall-2018
+              Graduated Redwood in {this.props.profileData.date.date.substring(0,4)}
             </h3>
             <h4>
               Projects:
             </h4>
             <ul>
-              <li>PayPal</li>
-              <li>The Boring Company</li>
-              <li>Tesla</li>
-              <li>Tesla Solar</li>
-              <li>SpaceX</li>
+              <li>{this.props.profileData.projects}</li>
             </ul>
           </div>
           <div className='summary'>
           <p>
-                      Elon Reeve Musk FRS is a business magnate and investor. He holds South African, Canadian, and U.S. citizenship and is the founder, CEO, and lead designer of SpaceX; co-founder, CEO, and product architect of Tesla, Inc.; co-founder and CEO of Neuralink; and co-founder of PayPal.                                     
+          {this.props.profileData.first_name} {this.props.profileData.last_name} FRS is a business magnate and investor. He holds South African, Canadian, and U.S. citizenship and is the founder, CEO, and lead designer of SpaceX; co-founder, CEO, and product architect of Tesla, Inc.; co-founder and CEO of Neuralink; and co-founder of PayPal.                                     
           </p>
           </div> 
           <div className='info'>
               <h3 className='location'>
-                  Currently living in: Silicon Valley, CA
+                {this.props.profileData.location}
               </h3>
               <h3 className='currentJob'>
                   Currently Working At:<br/>
-                  Tesla<br/>
-                  SpaceX
+                  {this.props.profileData.current_job},<br/>
+                  Redwood Code Academy
               </h3>
               <h3 className='Education'>
                   Graduated from:<br/>
-                  <img src=''></img>Queens University<br/>
-                  University of Pennsylvania
+                  {this.props.profileData.education}
               </h3>
               <h3 className='Skills'>
-                  Skills: nun-chuck skills
+              {this.props.profileData.skills}
               </h3>
           </div> 
           <div className='Experience'>
           <h3>
             Experiences:
           </h3><br/>
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          {this.props.profileData.experience.title}<br />
+          {this.props.profileData.experience.company}<br />
+          {this.props.profileData.experience.duration.substring(6,7)}<br />
+          {this.props.profileData.experience.location}<br />
+          {this.props.profileData.experience.description}<br />
+
           </div>       
       </div>
       {/* END OF PROFILE */}
@@ -89,4 +93,14 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+const mapStateToProps = state => ({
+  profileId: state.profileId,
+  profileData: state.profileData
+})
+
+const mapDispatchToProps = dispatch => ({
+  changeAlumniId: id => dispatch(conditionalAlumniProfile(id)),
+  getProfileData: id => dispatch(getProfileData(id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

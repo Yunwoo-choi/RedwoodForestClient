@@ -3,16 +3,20 @@ import {
   GET_ALL_PROFILES,
   CHANGE_ALUMNI_ID,
   GET_SPECIFIC_ALUMNI,
-  GET_GRAD_DATES
+  GET_GRAD_DATES,
+  GET_PROFILE_DATA,
+  GET_ALL_POSTS
   } from '../Constants';
   
     
     const initialState = {
       profiles: [],
       profileId: 3,
+      profileData: '',
       alumniId: 1,
       alumniData: '',
-      gradDates: ''
+      gradDates: '',
+      posts: ''
     }
     // you may also choose to use 'localStorage' (better/standard industry practice) 
     // to manage token info instead of in your Redux store 
@@ -28,6 +32,10 @@ import {
         return ({...state, alumniData: action.alumniData})
         case GET_GRAD_DATES:
         return ({...state, gradDates: action.gradDate})
+        case GET_PROFILE_DATA:
+        return ({...state, profileData: action.profileData})
+        case GET_ALL_POSTS: 
+        return ({...state, posts: action.posts})
         default:
         return state;
       }
